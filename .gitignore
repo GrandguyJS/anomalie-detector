@@ -1,2 +1,7 @@
-Sheet
 anomaly_detection_modified_Zscore_v1.0.ipynb
+.DS_STORE
+anomalies.xlsx
+pastdata.xlsx
+Plots/**
+query.sql
+touch query.sql
