@@ -68,7 +68,7 @@ def init_df(file): # Use if you have 2 sheets with old and new data, else use co
     # Return the vcreated Dataframd
     return df, size
 
-def getOutlier(df, group, name, z_score_threshold, min_group_size, month, plot = False, plot_dir = None):
+def getOutlier(df, group, name, z_score_threshold, min_group_size, month, plot = False):
     # Currmonth is the last row of the group, or the latest month. We want to check if it corresponds with the month we want to check.
     months = group["FiscalMonth"].tolist()
 
@@ -99,10 +99,11 @@ def getOutlier(df, group, name, z_score_threshold, min_group_size, month, plot =
     if plot and z_index >= z_score_threshold:   # If you want to plot and the last month is an outlier:
         group = df.loc[group.index].sort_values("FiscalMonth")  # Get all rows from the group from the modified dataframe that has the z_indexes and outlier flags
         new_name = "".join("_".join(name).split(" "))   # Set the name of the group
-        create_plot(group, new_name, plot_dir)  # Call the create_plot function with the group, the name and the plot directory
+        create_plot(group, new_name)  # Call the create_plot function with the group, the name and the plot directory
     return df   # Return the modified dataframe
 
-def createFile(df, excel_file_directory, name): # Create the file with all anomalies in the end
+def createFile(df, excel_file_directory): # Create the file with all anomalies in the end
+    name = plot_dir
     out_file = f'{excel_file_directory}{name}'  # Path to file
     df = df.sort_values(by=["Segment", "DeliveryOrg", "ServiceType", "DeliveryAreaName", "FiscalMonth"])    # Sort the DataFrame so the file is all groups after each other
     df.to_excel(out_file, index=False)  # Create the file
