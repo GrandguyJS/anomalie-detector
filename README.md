@@ -1,5 +1,5 @@
 # 1. Initialize the DataFrame from Sheet or SQL_Server
-## - 1.1 Load new and old data into a DataFrame
+-   ## 1.1 Load new and old data into a DataFrame
 ## - 1.2 get the size of the new data
 ## - 1.3 Concatenate both DataFrames --> Newer dataframe on the bottom
 ## - 1.4 Remove the month to be excluded
