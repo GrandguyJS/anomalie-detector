@@ -88,7 +88,7 @@ def getOutlier(df, group, name, z_score_threshold, min_group_size, month, plot =
     z_score = abs((group["hours"]-median) / std)    # Calculate all z_scores from the entire group and save it to a var
 
     df.loc[group.index, "Z_Score"] = z_score    # Got to the original DataFrame and set the rows from the group to have the calculated Z_Score
-
+    # df.loc[group.index, "Outlier_Flag"] = z_score >= z_score_threshhold  Uncomment his line and comment the next line if you want to check for Outliers everywhere and not only the month specified.
     z_index = df.loc[month_index,"Z_Score"] # Get the index of the last month which will be the month you specified in the beginning
 
     if z_index >= z_score_threshold:    # Check if the z_index is greater than the threshhold you specified in the function call
@@ -102,8 +102,8 @@ def getOutlier(df, group, name, z_score_threshold, min_group_size, month, plot =
         create_plot(group, new_name)  # Call the create_plot function with the group, the name and the plot directory
     return df   # Return the modified dataframe
 
-def createFile(df, excel_file_directory): # Create the file with all anomalies in the end
-    name = plot_dir
+def createFile(df, name): # Create the file with all anomalies in the end
+    excel_file_directory = directory # We create the file in the directory from the excel file you specified in  the variable directory
     out_file = f'{excel_file_directory}{name}'  # Path to file
     df = df.sort_values(by=["Segment", "DeliveryOrg", "ServiceType", "DeliveryAreaName", "FiscalMonth"])    # Sort the DataFrame so the file is all groups after each other
     df.to_excel(out_file, index=False)  # Create the file
@@ -112,8 +112,8 @@ def createFile(df, excel_file_directory): # Create the file with all anomalies i
 def get_percentage_outliers(df, size):
     return (df["Outlier_Flag"].sum() / size) * 100 # Return the sum of all Outliers (False = 0; True = 1) and divide it by the total amount of the rows in the 'new' datasheet --> You will get the percentage of outliers in the Dataframe
 
-def create_plot(group, name, plot_dir): # Create the plot
-
+def create_plot(group, name): # Create the plot
+    plot_dir = plot_dir
     fig, ax1 = plt.subplots()   # Get the X-Axis of the plot
 
     ax2 = ax1.twinx()   # Set the second X-Axis to be the same as the first one
@@ -162,5 +162,5 @@ if reset_rows:
 print("Anomaly Percentage: ","%.2f" % get_percentage_outliers(df, size) + "%")
 
 # Create the DataFrame in an excel file
-createFile(df, directory, "anomalies.xlsx")
+createFile(df, "anomalies.xlsx")
 
