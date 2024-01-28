@@ -54,7 +54,7 @@
 -   ### 5.4.3 Create the file
 -   ### 5.4.4 Return True
 #
-Created by (GrandguyJS)[https://github.com/GrandguyJS]
+Created by [GrandguyJS](https://github.com/GrandguyJS)
 #
 Readers Notes:
 The algorithm used to calculate the anomaly worked as follows. You subtract the median of the group from the hours_amount of the object you want to check. Then you divide with the standard deviation of the group and take the absolute value. This will get you the Z_Score of the object. We want to check if this Z_Score is greater than a threshhold you can assign. A useful threshhold is from 2.5 to 3.0.
